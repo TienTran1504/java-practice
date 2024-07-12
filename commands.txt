@@ -1,0 +1,38 @@
+
+// Create an MyLibrary.jar
+* javac -d library/target/classes library/src/java/com/mylibrary/**/*.java
+* jar cvf MyLibrary.jar -C library/target/classes .
+* mv MyLibrary.jar main/src/java/com/myapp/lib/
+
+
+
+
+// compile the MainClass into bytecode (file class)
+* javac -cp main/src/java/com/myapp/lib/MyLibrary.jar:lib/my-sql-connector-j-9.0.0.jar -d target/classes -sourcepath main/src/java main/src/java/com/myapp/MainClass.java
+
+
+// Decompile MyLibrary.jar into target/dependency
+* cd target
+* mkdir dependency
+* cd dependency
+* jar xf ../../main/src/java/com/myapp/lib/MyLibrary.jar
+* jar xf ../../main/src/java/com/myapp/lib/mysql-connector-j-9.0.0.jar
+* (or) --> for jarfile in ../../main/src/java/com/myapp/lib/*.jar; do jar xf $jarfile; done
+* cd ../../
+//Compile all of it
+* jar cvfe MyApp.jar com.myapp.MainClass -C target/classes/ . -C target/dependency .
+
+* java -jar MyApp.jar
+
+// combines all line
+javac -d library/target/classes library/src/java/com/mylibrary/**/*.java && jar cvf library/target/MyLibrary.jar -C library/target/classes . && mv library/target/MyLibrary.jar main/src/java/com/myapp/lib/ && javac -cp main/src/java/com/myapp/lib/MyLibrary.jar:lib/my-sql-connector-j-9.0.0.jar -d target/classes -sourcepath main/src/java main/src/java/com/myapp/MainClass.java && mkdir -p target/dependency && cd target/dependency && for jarfile in ../../main/src/java/com/myapp/lib/*.jar; do jar xf $jarfile; done && cd ../../ && jar cvfe target/MyApp.jar com.myapp.MainClass -C target/classes . -C target/dependency . && java -jar target/MyApp.jar
+
+
+
+****GUIDE****:
+Step 1: Run execute animal.sql file
+Step 2 : Run below command to build jar file
+javac -d library/target/classes library/src/java/com/mylibrary/**/*.java && jar cvf library/target/MyLibrary.jar -C library/target/classes . && mv library/target/MyLibrary.jar main/src/java/com/myapp/lib/ && javac -cp main/src/java/com/myapp/lib/MyLibrary.jar:lib/my-sql-connector-j-9.0.0.jar -d target/classes -sourcepath main/src/java main/src/java/com/myapp/MainClass.java && mkdir -p target/dependency && cd target/dependency && for jarfile in ../../main/src/java/com/myapp/lib/*.jar; do jar xf $jarfile; done && cd ../../ && jar cvfe target/MyApp.jar com.myapp.MainClass -C target/classes . -C target/dependency . && java -jar target/MyApp.jar
+
+
+

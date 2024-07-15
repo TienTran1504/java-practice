@@ -13,16 +13,7 @@
 3. Execute the following command to compile the library classes, package them into a JAR file, move the JAR file to the appropriate directory, compile the main application class, prepare the dependencies, package the application into an executable JAR, and finally run the application:
 
    ```bash
-   javac -d library/target/classes library/src/java/com/mylibrary/**/*.java && \
-   jar cvf library/target/MyLibrary.jar -C library/target/classes . && \
-   mv library/target/MyLibrary.jar main/src/java/com/myapp/lib/ && \
-   javac -cp main/src/java/com/myapp/lib/MyLibrary.jar:lib/my-sql-connector-j-9.0.0.jar -d target/classes -sourcepath main/src/java main/src/java/com/myapp/MainClass.java && \
-   mkdir -p target/dependency && \
-   cd target/dependency && \
-   for jarfile in ../../main/src/java/com/myapp/lib/*.jar; do jar xf $jarfile; done && \
-   cd ../../ && \
-   jar cvfe target/MyApp.jar com.myapp.MainClass -C target/classes . -C target/dependency . && \
-   java -jar target/MyApp.jar
+   javac -d library/target/classes library/src/java/com/mylibrary/**/*.java && jar cvf library/target/MyLibrary.jar -C library/target/classes . && mv library/target/MyLibrary.jar main/src/java/com/myapp/lib/ && javac -cp main/src/java/com/myapp/lib/MyLibrary.jar:lib/my-sql-connector-j-9.0.0.jar -d target/classes -sourcepath main/src/java main/src/java/com/myapp/MainClass.java && mkdir -p target/dependency && cd target/dependency && for jarfile in ../../main/src/java/com/myapp/lib/*.jar; do jar xf $jarfile; done && cd ../../ && jar cvfe target/MyApp.jar com.myapp.MainClass -C target/classes . -C target/dependency . && java -jar target/MyApp.jar
    ```
 
 This command performs several actions:
